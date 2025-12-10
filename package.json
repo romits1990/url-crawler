@@ -1,7 +1,13 @@
 {
   "name": "url-crawler",
   "version": "1.0.0",
-  "description": "A TypeScript library to crawl and extract cleaned HTML content from URLs.",
+  "description": "A library to crawl and extract cleaned HTML content from URLs.",
+  "author": "Romit Sanyal <sanyalromit1990@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romits1990/url-crawler"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
