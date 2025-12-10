@@ -1,0 +1,15 @@
+# Exclude source files
+src/
+
+# Exclude test files/directories if they exist
+test/
+tests/
+tempCrawlTest.ts
+
+# Exclude configuration files that aren't necessary for consumers
+tsconfig.json
+
+# Exclude typical dev dependencies
+node_modules/
+.gitignore
+.editorconfig
