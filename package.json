@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/romits1990/url-crawler"
+    "url": "git+https://github.com/romits1990/url-crawler.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
