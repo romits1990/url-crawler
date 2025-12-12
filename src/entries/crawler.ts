@@ -1,1 +1,1 @@
-export { Crawler } from '../services/crawler';
+export { Crawler } from '../services/crawler_impl';

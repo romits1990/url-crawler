@@ -4,6 +4,7 @@
   "description": "A library to crawl and extract cleaned HTML content from URLs.",
   "author": "Romit Sanyal <sanyalromit1990@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/romits1990/url-crawler.git"
@@ -30,17 +31,22 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.1.2",
-    "sanitize-html": "^1.27.0"
+    "robots-parser": "^3.0.1",
+    "sanitize-html": "^1.27.0",
+    "bottleneck": "^2.19.5"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@types/sanitize-html": "^2.16.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
     "typescript": "^4.1.2"
   },
   "engines": {
