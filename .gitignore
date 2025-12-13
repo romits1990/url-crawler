@@ -34,3 +34,6 @@ yarn-error.log*
 temp/
 tmp/
 *.tmp
+
+#Coverage
+coverage/
