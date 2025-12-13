@@ -34,6 +34,18 @@
     "./config": {
       "types": "./dist/entries/config.d.ts",
       "default": "./dist/entries/config.js"
+    },
+    "./htmlParser": {
+      "types": "./dist/utils/htmlParser.d.ts",
+      "default": "./dist/utils/htmlParser.js"
+    },
+    "./httpHelper": {
+      "types": "./dist/services/httpHelper.d.ts",
+      "default": "./dist/services/httpHelper.js"
+    },
+    "./robotsTxt": {
+      "types": "./dist/services/robotsTxt.d.ts",
+      "default": "./dist/services/robotsTxt.js"
     }
   },
   "scripts": {
