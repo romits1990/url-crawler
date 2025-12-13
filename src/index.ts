@@ -1,3 +1,3 @@
-export * from './entries/crawler';
-export * from './entries/types';
-export * from './entries/config';
+export * from './entries/crawler.js';
+export * from './entries/types.js';
+export * from './entries/config.js';

@@ -10,3 +10,14 @@ export type CrawlErrorEventPayload = { url: string; message: string };
 export type PageProcessedEventPayload = { url: string; title: string; content: string };
 export type PageErrorEventPayload = { url: string; message: string };
 export type EventData = CrawlStartedEventPayload | CrawlCompletedEventPayload | CrawlErrorEventPayload | PageProcessedEventPayload | PageErrorEventPayload;
+
+export type RobotsTxtCacheEntry = {
+    robot: import('robots-parser').Robot;
+    expiresAt: number;
+};
+
+export type Config = {
+    MAX_DEPTH: number;
+    MAX_PAGES: number;
+    CRAWL_DELAY_MS: number;
+};

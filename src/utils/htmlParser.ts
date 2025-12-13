@@ -15,6 +15,10 @@ export class HtmlParser {
     static extractAnchorTagUrlsFromHtml(html: string, baseUrl: string = ''): string[] {
         const $ = cheerio.load(html);
         const urls: string[] = [];
+        let baseHost = '';
+        try {
+            baseHost = baseUrl ? new URL(baseUrl).host : '';
+        } catch {}
         $('a[href]').each((_, el) => {
             let href = $(el).attr('href');
             if (!href) return;
@@ -23,7 +27,10 @@ export class HtmlParser {
             try {
                 // Normalize using URL constructor
                 const normalized = new URL(href, baseUrl).toString();
-                urls.push(normalized);
+                // Only include links with the same host as baseUrl
+                if (!baseHost || new URL(normalized).host === baseHost) {
+                    urls.push(normalized);
+                }
             } catch {
                 // Ignore invalid URLs
             }

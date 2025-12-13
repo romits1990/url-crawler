@@ -1,7 +1,5 @@
-// Just crawler
-import { Crawler } from './src/entries/crawler';
+import { Crawler } from './dist';
 
-// Just types
 import type { 
     CrawlStartedEventPayload,
     CrawlCompletedEventPayload,
@@ -9,15 +7,16 @@ import type {
     PageProcessedEventPayload,
     PageErrorEventPayload,
     EventData
- } from './src/entries/types';
+ } from './dist';
 
 // Just config
-import { EVENT_TYPES } from './src/entries/config';
+import { EVENT_TYPES } from './dist';
 
 const testUrl = "https://www.scrapethissite.com/pages/";
 const configOverrides = {
     MAX_DEPTH: 2,
-    MAX_PAGES: 10
+    MAX_PAGES: 10,
+    CRAWL_DELAY_MS: 2000
 };
 const crawler = new Crawler(testUrl, configOverrides);
 
@@ -38,6 +37,16 @@ crawler.on(EVENT_TYPES.CRAWL_COMPLETED, (eventData: EventData) => {
 
 crawler.on(EVENT_TYPES.PAGE_PROCESSED, (eventData: EventData) => {
     const data = eventData as PageProcessedEventPayload;
+    const host = new URL(data.url).host;
+    const now = Date.now();
+    // track last processed timestamp per host to observe crawl-delay enforcement
+    (globalThis as any).__lastHostTs = (globalThis as any).__lastHostTs || {};
+    const lastHostTs: Record<string, number> = (globalThis as any).__lastHostTs;
+    const last = lastHostTs[host] ?? 0;
+    if (last) {
+        console.log(`[TIMING] host=${host} deltaMs=${now - last}`);
+    }
+    lastHostTs[host] = now;
     console.log(`[CALLBACK] Page processed: ${data.url} | Title: ${data.title}`);
 });
 
