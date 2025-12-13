@@ -1,10 +1,10 @@
 import { EventEmitter } from 'events';
-import { RobotsTxt } from './robotsTxt.js';
-import { HtmlParser } from '../utils/htmlParser.js';
-import { HttpHelper } from './httpHelper.js';
-import { config, EVENT_TYPES } from '../config/index.js';
-import { ParsedContentDetails } from '../types/index.js';
-import { HostRateLimiter } from '../utils/hostRateLimiter.js';
+import { RobotsTxt } from './robotsTxt';
+import { HtmlParser } from '../utils/htmlParser';
+import { HttpHelper } from './httpHelper';
+import { config, EVENT_TYPES } from '../config';
+import { ParsedContentDetails } from '../types';
+import { HostRateLimiter } from '../utils/hostRateLimiter';
 
 export class Crawler extends EventEmitter {
     private visitedUrls: Set<string>;

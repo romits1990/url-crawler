@@ -1,7 +1,7 @@
 import robotsParser, { Robot  } from 'robots-parser';
-import { HttpHelper } from './httpHelper.js';
-import { CRAWLER_USER_AGENT, ROBOTS_CACHE_TTL_MS } from '../config/index.js';
-import { RobotsTxtCacheEntry } from '../types/index.js';
+import { HttpHelper } from './httpHelper';
+import { CRAWLER_USER_AGENT, ROBOTS_CACHE_TTL_MS } from '../config';
+import { RobotsTxtCacheEntry } from '../types';
 
 export class RobotsTxt {
   private static robotsCache = new Map<string, RobotsTxtCacheEntry>();
