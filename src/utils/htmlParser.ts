@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import sanitizeHtml from 'sanitize-html';
-import { ParsedContentDetails } from '../types';
+import { ParsedContentDetails } from '../types/index.js';
 
 export class HtmlParser {
     static cleanHtml(html: string): string {

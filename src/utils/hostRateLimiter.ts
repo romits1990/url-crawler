@@ -1,8 +1,8 @@
 
 import Bottleneck from 'bottleneck';
-import { config } from '../config';
-import { RobotsTxt } from '../services/robotsTxt';
-import { Config } from '../types';
+import { config } from '../config/index.js';
+import { RobotsTxt } from '../services/robotsTxt.js';
+import { Config } from '../types/index.js';
 
 export class HostRateLimiter {
     private group: Bottleneck.Group;

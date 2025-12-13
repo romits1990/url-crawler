@@ -1,22 +1,27 @@
 import { EventEmitter } from 'events';
-import { RobotsTxt } from './robotsTxt';
-import { HtmlParser } from '../utils/htmlParser';
-import { HttpHelper } from './httpHelper';
-import { config, EVENT_TYPES } from '../config';
-import { ParsedContentDetails } from '../types';
+import { RobotsTxt } from './robotsTxt.js';
+import { HtmlParser } from '../utils/htmlParser.js';
+import { HttpHelper } from './httpHelper.js';
+import { config, EVENT_TYPES } from '../config/index.js';
+import { ParsedContentDetails } from '../types/index.js';
+import { HostRateLimiter } from '../utils/hostRateLimiter.js';
 
 export class Crawler extends EventEmitter {
     private visitedUrls: Set<string>;
     private sourceUrl: string;
     private baseUrl: string;
 
+    // use centralized host rate limiter utility
+    private rateLimiter: HostRateLimiter;
+
     constructor(sourceUrl: string, configOverrides: Partial<typeof config> = {}) {
         super();
         this.sourceUrl = sourceUrl;
+        this.rateLimiter = new HostRateLimiter();
         this.baseUrl = HttpHelper.getBaseUrl(sourceUrl);
         this.visitedUrls = new Set();
         configOverrides && Object.assign(config, configOverrides);
-        console.log(`[Crawler] baseUrl=${this.baseUrl} MAX_DEPTH=${config.MAX_DEPTH} MAX_PAGES=${config.MAX_PAGES}`);
+        console.log(`[Crawler] baseUrl=${this.baseUrl} MAX_DEPTH=${config.MAX_DEPTH} MAX_PAGES=${config.MAX_PAGES} CRAWL_DELAY_MS=${(config as any).CRAWL_DELAY_MS}`);
     }
 
     public async startCrawl(): Promise<void> {
@@ -74,8 +79,9 @@ export class Crawler extends EventEmitter {
         console.log(`[${ts()}] [START] depth=${currentDepth} visited=${this.visitedUrls.size} url=${pageUrl}`);
 
         try {
+            // perform fetch via centralized rate limiter (enforces robots.txt and configured delays)
             const startedAt = Date.now();
-            const content = await HttpHelper.fetchContent(pageUrl);
+            const content = await this.rateLimiter.schedule(pageUrl, () => HttpHelper.fetchContent(pageUrl));
             const { title, cleanedContent, otherPageUrls }: ParsedContentDetails = HtmlParser.extractRelevantContentFromHtml(content, this.baseUrl);
             const tookMs = Date.now() - startedAt;
             

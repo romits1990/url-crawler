@@ -1,7 +1,5 @@
-// Just crawler
-import { Crawler } from './src/entries/crawler';
+import { Crawler } from './dist/index.js';
 
-// Just types
 import type { 
     CrawlStartedEventPayload,
     CrawlCompletedEventPayload,
@@ -9,10 +7,10 @@ import type {
     PageProcessedEventPayload,
     PageErrorEventPayload,
     EventData
- } from './src/entries/types';
+ } from './dist/index.js';
 
 // Just config
-import { EVENT_TYPES } from './src/entries/config';
+import { EVENT_TYPES } from './dist/index.js';
 
 const testUrl = "https://www.scrapethissite.com/pages/";
 const configOverrides = {

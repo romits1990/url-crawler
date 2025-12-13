@@ -5,4 +5,4 @@ export type {
     CrawlErrorEventPayload,
     PageProcessedEventPayload,
     EventData
-} from '../types';
+} from '../types/index.js';

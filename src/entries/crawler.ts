@@ -1,1 +1,1 @@
-export { Crawler } from '../services/crawlerV2';
+export { Crawler } from '../services/crawler.js';
