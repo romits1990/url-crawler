@@ -1,5 +1,13 @@
 # URL Crawler Library
 
+⚠️ **EDUCATIONAL PURPOSES ONLY** ⚠️
+
+**This library is NOT production-ready and should only be used for educational and learning purposes.** It lacks critical production features such as robust error handling, retry logic, graceful shutdown, memory management for large crawls, monitoring, and observability.
+
+For production use cases, consider battle-tested alternatives like **Puppeteer**, **Playwright**, **Scrapy** (Python), or other established web crawling frameworks.
+
+---
+
 A TypeScript library for crawling and extracting cleaned HTML content from URLs. This library provides tools to fetch HTML content, parse it, extract links, and recursively crawl pages with configurable depth and page limits.
 
 ## Features
