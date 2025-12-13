@@ -20,6 +20,16 @@ A TypeScript library for crawling and extracting cleaned HTML content from URLs.
 npm install url-crawler
 ```
 
+## Import Patterns
+
+The library exports the Crawler class, type definitions, and configuration:
+
+```typescript
+import { Crawler } from 'url-crawler';
+import type { CrawlStartedEventPayload } from 'url-crawler';
+import { EVENT_TYPES, config } from 'url-crawler';
+```
+
 ## Usage
 
 ### Event-Driven Crawling
@@ -74,22 +84,32 @@ await crawler.startCrawl();
 ### HTML Parsing
 
 ```typescript
-import { HtmlParser } from 'url-crawler';
+// HtmlParser is used internally by Crawler
+// For custom HTML parsing, use the Crawler to fetch and process pages
+const crawler = new Crawler('https://example.com');
 
-const html = '<html><body><a href="/page">Link</a></body></html>';
-const parsed = HtmlParser.extractRelevantContentFromHtml(html, 'https://example.com');
-console.log(parsed.title);
-console.log(parsed.cleanedContent);
-console.log(parsed.otherPageUrls);
+crawler.on('page:processed', (data) => {
+    const { url, title, cleanedContent, otherPageUrls } = data;
+    console.log(title);
+    console.log(cleanedContent);
+    console.log(otherPageUrls);
+});
+
+await crawler.startCrawl();
 ```
 
-### HTTP Helper
+### HTTP Fetching
 
 ```typescript
-import { HttpHelper } from 'url-crawler';
+// HttpHelper is used internally by Crawler
+// Use Crawler for HTTP operations with built-in rate limiting and robots.txt support
+```
 
-const html = await HttpHelper.fetchHtml('https://example.com');
-const baseUrl = HttpHelper.getBaseUrl('https://example.com/page');
+### Robots.txt Parser
+
+```typescript
+// RobotsTxtParser is used internally by Crawler
+// Robots.txt checking is automatic - disallowed URLs are skipped during crawling
 ```
 
 ## Configuration
@@ -116,6 +136,19 @@ The `Crawler` class emits the following events:
 - **`crawl:completed`**: Emitted when crawling completes successfully. Payload: `{ url, totalPages, durationMs }`
 - **`crawl:error`**: Emitted when a critical crawl error occurs. Payload: `{ url, message }`
 
+## Available Exports
+
+The library exports:
+
+- `Crawler` - The main web crawler class
+- `EVENT_TYPES` - Event type constants for event listeners
+- `config` - Configuration object with default values
+- `ROBOTS_CACHE_TTL_MS` - Cache TTL for robots.txt
+- `CRAWLER_USER_AGENT` - User agent string used for HTTP requests
+- Type definitions: `CrawlStartedEventPayload`, `PageProcessedEventPayload`, `CrawlCompletedEventPayload`, `PageErrorEventPayload`, `CrawlErrorEventPayload`, `EventData`
+
+All utility services (HtmlParser, HttpHelper, RobotsTxtParser) are used internally by the Crawler and not exposed as separate exports.
+
 ## Project Structure
 
 ```
@@ -128,9 +161,9 @@ src
 │   ├── config.ts         # Config export
 │   └── types.ts          # Types export
 ├── services
-│   ├── robustCrawler.ts  # Event-driven crawler implementation
-│   ├── crawler.ts        # Basic crawler class
-│   └── httpHelper.ts     # HTTP utilities (fetch, URL parsing)
+│   ├── crawler.ts        # Event-driven crawler implementation
+│   ├── httpHelper.ts     # HTTP utilities (fetch, URL parsing)
+│   └── robotsTxt.ts      # Robots.txt parsing and URL validation
 ├── types
 │   └── index.ts          # TypeScript interfaces and types
 └── utils

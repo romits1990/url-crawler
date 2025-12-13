@@ -31,30 +31,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./crawler": {
-      "types": "./dist/entries/crawler.d.ts",
-      "default": "./dist/entries/crawler.js"
-    },
-    "./types": {
-      "types": "./dist/entries/types.d.ts",
-      "default": "./dist/entries/types.js"
-    },
-    "./config": {
-      "types": "./dist/entries/config.d.ts",
-      "default": "./dist/entries/config.js"
-    },
-    "./htmlParser": {
-      "types": "./dist/utils/htmlParser.d.ts",
-      "default": "./dist/utils/htmlParser.js"
-    },
-    "./httpHelper": {
-      "types": "./dist/services/httpHelper.d.ts",
-      "default": "./dist/services/httpHelper.js"
-    },
-    "./robotsTxt": {
-      "types": "./dist/services/robotsTxt.d.ts",
-      "default": "./dist/services/robotsTxt.js"
     }
   },
   "scripts": {
